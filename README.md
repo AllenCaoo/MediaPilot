@@ -50,6 +50,7 @@
 - **datasets/**: stores all our datasets for building NLP application
 
 ## Setup
+0. `git clone https://github.com/AllenCaoo/MediaPilot.git` 
 1. Ensure: `Python >= 3.9`
 2. `pip install -r requirements.txt` (try `pip3` if `pip` doesn't work)
 3. `cd client`
