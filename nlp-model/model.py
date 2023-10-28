@@ -68,5 +68,7 @@ sentiment_model = project.models.get('sentiment_test')
 sentiment_model.wait_complete()
 sentiment_model.predict(query)
 
+server.close()
+
 
 # project.list_models()
