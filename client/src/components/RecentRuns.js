@@ -22,76 +22,80 @@ import Chart from './Chart';
 import Upload from './Upload';
 import Settings from './Settings';
 import Analysis from './Analysis';
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-function DropdownRow() {
+function AccordionRow() {
   return (
-    <div>
-    <Grid container spacing={5}>
-      {/* Dropdown 1 */}
-      <Grid item xs={2} lg={12/3}>
-        <FormControl fullWidth>
-          <InputLabel>Dropdown 1</InputLabel>
-          <Select>
-            <MenuItem value={1}>Option 1</MenuItem>
-            <MenuItem value={2}>Option 2</MenuItem>
-            <MenuItem value={3}>Option 3</MenuItem>
-          </Select>
-        </FormControl>
+    <Grid container spacing={2}>
+      <Grid item xs={4}>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Accordion 1</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1">
+              Content for Accordion 1.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
       </Grid>
-
-      {/* Dropdown 2 */}
-      <Grid item xs={2} lg={12/3}>
-        <FormControl fullWidth>
-          <InputLabel>Dropdown 2</InputLabel>
-          <Select>
-            <MenuItem value={1}>Option 1</MenuItem>
-            <MenuItem value={2}>Option 2</MenuItem>
-            <MenuItem value={3}>Option 3</MenuItem>
-          </Select>
-        </FormControl>
+      <Grid item xs={4}>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Accordion 2</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1">
+              Content for Accordion 2.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
       </Grid>
-
-      {/* Dropdown 3 */}
-      <Grid item xs={2} lg={12/3}>
-        <FormControl fullWidth>
-          <InputLabel>Dropdown 3</InputLabel>
-          <Select>
-            <MenuItem value={1}>Option 1</MenuItem>
-            <MenuItem value={2}>Option 2</MenuItem>
-            <MenuItem value={3}>Option 3</MenuItem>
-          </Select>
-        </FormControl>
+      <Grid item xs={4}>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Accordion 3</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1">
+              Content for Accordion 3.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
       </Grid>
-
-
-    {/* First row */}
-    <Grid item xs={6}>
-      {/* Content for the first row, taking half of the available width */}
-      <div>Row 1 - Item 1</div>
     </Grid>
-    <Grid item xs={6}>
-      {/* Content for the first row, taking half of the available width */}
-      <div>Row 1 - Item 2</div>
-    </Grid>
-
-    {/* Second row */}
-    <Grid item xs={4}>
-      {/* Content for the second row, taking one-third of the available width */}
-      <div>Row 2 - Item 1</div>
-    </Grid>
-    <Grid item xs={4}>
-      {/* Content for the second row, taking one-third of the available width */}
-      <div>Row 2 - Item 2</div>
-    </Grid>
-    <Grid item xs={4}>
-      {/* Content for the second row, taking one-third of the available width */}
-      <div>Row 2 - Item 3</div>
-    </Grid>
-    </Grid>
-    </div>
   );
 }
+
+
+//     {/* First row */}
+//     <Grid item xs={6}>
+//       {/* Content for the first row, taking half of the available width */}
+//       <div>Row 1 - Item 1</div>
+//     </Grid>
+//     <Grid item xs={6}>
+//       {/* Content for the first row, taking half of the available width */}
+//       <div>Row 1 - Item 2</div>
+//     </Grid>
+
+//     {/* Second row */}
+//     <Grid item xs={4}>
+//       {/* Content for the second row, taking one-third of the available width */}
+//       <div>Row 2 - Item 1</div>
+//     </Grid>
+//     <Grid item xs={4}>
+//       {/* Content for the second row, taking one-third of the available width */}
+//       <div>Row 2 - Item 2</div>
+//     </Grid>
+//     <Grid item xs={4}>
+//       {/* Content for the second row, taking one-third of the available width */}
+//       <div>Row 2 - Item 3</div>
+//     </Grid>
+//     </Grid>
+//     </div>
+//   );
+// }
 
 function Copyright(props) {
   return (
@@ -249,7 +253,11 @@ function RecentRunsContent({setPage}) {
                     flexDirection: 'column',
                     height: 360
                     }}>
-                  <DropdownRow /> {/* Include the DropdownRow component here */}
+                  <AccordionRow />
+                      <Box sx={{ mb: 2 }} /> {/* Add spacing between the AccordionRow components */}
+                  <AccordionRow />
+                      <Box sx={{ mb: 2 }} /> {/* Add spacing between the AccordionRow components */}
+                  <AccordionRow />
                 </Paper>
               </Grid>
               {loadGrids()}
