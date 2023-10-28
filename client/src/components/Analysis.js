@@ -30,42 +30,35 @@ import Chip from '@mui/material/Chip';
 
 const ariaLabel = { 'aria-label': 'description' };
 
-const StyledRating = styled(Rating)(({ theme }) => ({
-  '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
-    color: theme.palette.action.disabled,
-  },
-}));
+// const StyledRating = styled(Rating)(({ theme }) => ({
+//   '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+//     color: theme.palette.action.disabled,
+//   },
+// }));
 
 const customIcons = {
   1: {
-    icon: <SentimentVeryDissatisfiedIcon color="error" />,
+    icon: <SentimentVeryDissatisfiedIcon />,
     label: 'Very Dissatisfied',
   },
   2: {
-    icon: <SentimentDissatisfiedIcon color="error" />,
+    icon: <SentimentDissatisfiedIcon />,
     label: 'Dissatisfied',
   },
   3: {
-    icon: <SentimentSatisfiedIcon color="warning" />,
+    icon: <SentimentSatisfiedIcon />,
     label: 'Neutral',
   },
   4: {
-    icon: <SentimentSatisfiedAltIcon color="success" />,
+    icon: <SentimentSatisfiedAltIcon />,
     label: 'Satisfied',
   },
   5: {
-    icon: <SentimentVerySatisfiedIcon color="success" />,
+    icon: <SentimentVerySatisfiedIcon />,
     label: 'Very Satisfied',
   },
 };
-function IconContainer(props) {
-  const { value, ...other } = props;
-  return <span {...other}>{customIcons[value].icon}</span>;
-}
 
-IconContainer.propTypes = {
-  value: PropTypes.number.isRequired,
-};
 
 function preventDefault(event) {
   event.preventDefault();
@@ -143,6 +136,47 @@ const WordsOfAnger = () => {
   );
 };
 
+function IconContainer(props) {
+  const { value, ...other } = props;
+  return <span {...other}>{customIcons[value].icon}</span>;
+}
+
+IconContainer.propTypes = {
+  value: PropTypes.number.isRequired,
+};
+
+function MyRatingComponent() {
+  const selectedValue = 4; // Change this value to select a different icon
+
+  return (
+    <Rating
+      name="custom-rating"
+      value={selectedValue}
+      IconContainerComponent={IconContainer} // Use your custom IconContainer
+      highlightSelectedOnly // Enable the highlightSelectedOnly behavior
+      readOnly
+    />
+  );
+}
+
+const StyledRating = styled(Rating)(({ theme, value }) => ({
+  '& .MuiRating-iconFilled': {
+    color: value === 1 ? 'red' : 
+      value === 2 ? 'orange' : 
+      value === 3 ? 'yellow' : 
+      value === 4 ? 'green' : 
+      value === 5 ? 'blue' : 'inherit',
+  },
+  '& .MuiRating-iconHover': {
+    color: 'inherit',
+  },
+  '& .MuiRating-iconEmpty': {
+    color: 'inherit',
+  },
+  [`& .MuiRating-iconFilled[data-value="4"]`]: {
+    color: 'green', // Color for icon value 4
+  },
+}));
 
 
 export default function Analysis() {
@@ -167,13 +201,7 @@ export default function Analysis() {
           <Typography variant="body1" display="block" gutterBottom>
                 Overall Sentiment
           </Typography>
-          <StyledRating
-            name="highlight-selected-only"
-            defaultValue={2}
-            IconContainerComponent={IconContainer}
-            getLabelText={(value) => customIcons[value].label}
-            highlightSelectedOnly
-          />
+          <MyRatingComponent />
           <WordsOfAnger />
         </Grid>
       </Grid>
