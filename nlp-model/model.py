@@ -59,7 +59,7 @@ conn.commit()
 
 
 
-# sentiment_model = project.models.create(
+# model = project.models.create(
 #     name = 'sentiment',
 #     database = 'files',
 #     predict = 'favorites',
@@ -67,9 +67,10 @@ conn.commit()
 #     #from_data = 'mediapilot/datasets/training_data.csv'
 # )
 
-sentiment_model = project.models.get('sentiment')
+model = project.models.get('sentiment')
 
 
+# sentiment = project.
 # with engine.connect() as conn:
 #     conn.execute('COMMIT')
 
@@ -87,7 +88,24 @@ sentiment_model = project.models.get('sentiment')
 # sentiment_model.describe()
 # sentiment_model.wait_complete()
 # query = 'SELECT * FROM dtrump;'
-sentiment_model.predict('favorites')
+
+q = project.query("SELECT * FROM dtrump")
+
+# view = project.views.create(
+#     name = 'dtrump', 
+#     sql = q, 
+#     database = 'files'
+#     )
+
+views = project.views.list()
+print(views)
+# sentiment = view.create("sentiment", q, database = 'files')
+# query = pd.read_sql_query(q, con=conn)
+dtrump = project.views.get('dtrump')
+
+query = project.query("SELECT 'favorites' FROM dtrump")
+
+model.predict(dtrump.limit(10))
 
 # server.close()
 

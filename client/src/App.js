@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef, Switch } from 'react'
-import { BrowserRouter, Route } from "react-router-dom";
 
 
 import { BASE_URL } from './Contants/Constants';
 import { api } from './api';
-import Dashboard from './components/Dashboard';
 import Home from './pages/Home';
 import RecentRuns from './components/RecentRuns';
 
@@ -112,15 +110,6 @@ function App() {
         
     </div>
   )
-
-  // return (
-  //   <BrowserRouter>
-  //     <Switch>
-  //       <Route exact path="/" component={Home} />
-  //       <Route path="/results" component={Results} />
-  //     </Switch>
-  //   </BrowserRouter>
-  // );
 }
 
 export default App
