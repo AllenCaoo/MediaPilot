@@ -2,11 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { BASE_URL } from './Contants/Constants';
 import { api } from './api';
 import Dashboard from './components/Dashboard';
+import RecentRuns from './components/RecentRuns';
 
 function App() {
 
   const [data, setData] = useState([{"hello": ["hello"]}])
   const [echo, setEcho] = useState({"Echo": "echoooo"})
+  const [page, setPage] = useState("dashboard")
+
+  const choosePage = (pg) => {
+    if (pg == "dashboard") {
+      return <Dashboard setPage={setPage}/>
+    } else if (pg == "recent_runs") {
+      return <RecentRuns setPage={setPage}/>
+    }
+  }
+
 
   // useEffect(() => {
   //   fetch(api("/testget"))
@@ -42,7 +53,7 @@ function App() {
     <div>
         {/* {JSON.stringify(data)}
         {JSON.stringify(echo)} */}
-        <Dashboard/>
+        {choosePage(page)}
     </div>
   )
 }

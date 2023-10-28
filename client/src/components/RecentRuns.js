@@ -84,7 +84,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent({setPage}) {
+function RecentRunsContent({setPage}) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -164,31 +164,18 @@ function DashboardContent({setPage}) {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }} align="center">
-              {/* TODO: grid 1 */}
             <Grid container spacing={3}>
-                <Grid item xs={12} md={8} lg={12}>
+                {/* TODO: Fill in stuff */}
+              <Grid item xs={12} md={8} lg={12}>
                 <Paper sx={{ 
                     p: 2, 
                     display: 'flex', 
                     flexDirection: 'column',
                     height: 360
                     }}>
-                    <Upload />
                 </Paper>
               </Grid>
               
-              {/* TODO: grid 2 */}
-              <Grid item xs={12} md={4} lg={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 360,
-                  }}>
-                  <Analysis />
-                </Paper>
-              </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
@@ -198,6 +185,6 @@ function DashboardContent({setPage}) {
   );
 }
 
-export default function Dashboard({setPage}) {
-  return <DashboardContent setPage={setPage}/>;
+export default function RecentRuns({setPage}) {
+  return <RecentRunsContent setPage={setPage}/>;
 }
