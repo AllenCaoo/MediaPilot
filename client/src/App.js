@@ -1,7 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef, Switch } from 'react'
+import { BrowserRouter, Route } from "react-router-dom";
+
+
 import { BASE_URL } from './Contants/Constants';
 import { api } from './api';
 import Dashboard from './components/Dashboard';
+import Home from './pages/Home';
+
+
+import Results from "./pages/Results";
 
 function App() {
 
@@ -38,13 +45,29 @@ function App() {
   //   )
   // }, [])
 
+  
   return (
+
+    
     <div>
+      
         {/* {JSON.stringify(data)}
         {JSON.stringify(echo)} */}
-        <Dashboard/>
+        <Dashboard />
+        <Home/>
+        <Results />
+        
     </div>
   )
+
+  // return (
+  //   <BrowserRouter>
+  //     <Switch>
+  //       <Route exact path="/" component={Home} />
+  //       <Route path="/results" component={Results} />
+  //     </Switch>
+  //   </BrowserRouter>
+  // );
 }
 
 export default App
