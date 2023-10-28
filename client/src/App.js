@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, Switch } from 'react'
 import { BASE_URL } from './Contants/Constants';
 import { api } from './api';
 import Home from './pages/Home';
+import RecentRuns from './components/RecentRuns';
 
 
 import Results from "./pages/Results";
@@ -12,6 +13,46 @@ function App() {
 
   const [data, setData] = useState([{"hello": ["hello"]}])
   const [echo, setEcho] = useState({"Echo": "echoooo"})
+  const [page, setPage] = useState("dashboard")
+
+  const choosePage = (pg) => {
+    if (pg == "dashboard") {
+      return <Dashboard setPage={setPage}/>
+    } else if (pg == "recent_runs") {
+      return <RecentRuns setPage={setPage}/>
+    }
+  }
+
+
+  // useEffect(() => {
+  //   fetch(api("/testget"))
+  //   .then(
+  //     res => res.json()
+  //   ).then(
+  //     d => {
+  //       setData(d);
+  //       console.log(d);
+  //     }
+  //   )
+  // }, [])
+
+  // useEffect(() => {
+  //   fetch(api("/echo"), {
+  //     method: 'POST', // Replace with the appropriate HTTP method (e.g., POST, PUT)
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(echo),
+  //   })
+  //   .then(
+  //     res => res.json()
+  //   ).then(
+  //     d => {
+  //       setEcho(d);
+  //       console.log(d);
+  //     }
+  //   )
+  // }, [])
 
   useEffect(() => {
     // Fetch data from /testget endpoint
@@ -63,8 +104,9 @@ function App() {
       
         {/* {JSON.stringify(data)}
         {JSON.stringify(echo)} */}
-        <Home/>
-        <Results />
+        {choosePage(page)}
+        {/* <Home/>
+        <Results /> */}
         
     </div>
   )

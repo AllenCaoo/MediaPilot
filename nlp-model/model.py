@@ -3,12 +3,23 @@ from sqlalchemy import select, create_engine
 import pandas as pd
 import sqlite3
 
+
+TRAINING_LOCATION = 'datasets/realdonaldtrump/realdonaldtrump.csv'
+SELECT_25_QUERY = 'select * from training LIMIT 25'
+PROJECT_NAME = 'mediapilot'
+DB_NAME = 'our_data.db'
+MODEL_NAME = 'hehe_model'
+
 # connects to the default port (47334) on localhost
+# server = mindsdb_sdk.connect()
+# connects to the specified host and port
+server = mindsdb_sdk.connect('http://127.0.0.1:47334')
 
-
-server = mindsdb_sdk.connect()
 
 db0 = server.databases.list()[0]
+<<<<<<< HEAD
+query = db0.query(SELECT_25_QUERY)
+=======
 
 # db = server.database.connect(
 #     engine = 'sqlite',
@@ -21,15 +32,13 @@ db0 = server.databases.list()[0]
 
 # Sample query 
 # query = db0.query('select * from training LIMIT 25')
+>>>>>>> c23b395fd435a19617f86ecf55b8d04d151ef035
 # print(query.fetch())
-
-# connects to the specified host and port
-# server = mindsdb_sdk.connect('http://127.0.0.1:47334')
 
 project = server.get_project('mediapilot')
 
-models = project.models.list()
-print(models)
+# models = project.models.list()
+# print(models)
 
 # server.list_projects()
 
@@ -42,7 +51,7 @@ print(models)
 # engine = create_engine('sqlite:///datasets/our_data.db')
 df = pd.read_csv('datasets/realdonaldtrump.csv')
 
-conn = sqlite3.connect('our_data.db')
+conn = sqlite3.connect(DB_NAME)
 
 df.to_sql(name='data', con=conn, if_exists='replace', index=False)
 
