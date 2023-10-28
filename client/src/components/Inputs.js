@@ -24,9 +24,12 @@
 
 
 import * as React from 'react';
+import { useEffect, useState } from "react";
 import FormControl, { useFormControl } from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormHelperText from '@mui/material/FormHelperText';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 function MyFormHelperText() {
   const { focused } = useFormControl() || {};
@@ -42,14 +45,44 @@ function MyFormHelperText() {
   return <FormHelperText>{helperText}</FormHelperText>;
 }
 
-export default function UseFormControl() {
-  return (
 
+// const handleClick = () => {
+//     const something = {
+//       objVar: 1234
+//     };
+//     return something;
+//   };
+  
+//   const {
+//     objVar
+//   } = handleClick()
+
+
+
+export default function UseFormControl() {
+    const [enteredText, setEnteredText] = useState('');
+  
+    const handleTextChange = (event) => {
+      setEnteredText(event.target.value);
+    };
+    console.log(enteredText)
+  return (
+    enteredText,
     <form noValidate autoComplete="off">
-      <FormControl sx={{ width: '25ch' }}>
+      <FormControl sx={{ width: '25ch' }} 
+        value={enteredText}
+        onChange={handleTextChange}>
+        
         <OutlinedInput placeholder="Please enter text" />
         <MyFormHelperText />
       </FormControl>
+
     </form>
   );
+
+
+
+
+
 }
+
