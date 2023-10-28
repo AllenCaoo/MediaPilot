@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Upload from './Upload';
 import Settings from './Settings';
+import Analysis from './Analysis';
 
 function Copyright(props) {
   return (
@@ -183,7 +184,7 @@ function DashboardContent() {
                     flexDirection: 'column',
                     height: 360,
                   }}>
-                  
+                  <Analysis />
                 </Paper>
               </Grid>
             </Grid>
