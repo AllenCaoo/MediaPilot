@@ -28,7 +28,7 @@ function DropdownRow() {
   return (
     <Grid container spacing={2}>
       {/* Dropdown 1 */}
-      <Grid item xs={2}>
+      <Grid item xs={2} lg={12/5}>
         <FormControl fullWidth>
           <InputLabel>Dropdown 1</InputLabel>
           <Select>
@@ -40,7 +40,7 @@ function DropdownRow() {
       </Grid>
 
       {/* Dropdown 2 */}
-      <Grid item xs={2}>
+      <Grid item xs={2} lg={12/5}>
         <FormControl fullWidth>
           <InputLabel>Dropdown 2</InputLabel>
           <Select>
@@ -52,7 +52,7 @@ function DropdownRow() {
       </Grid>
 
       {/* Dropdown 3 */}
-      <Grid item xs={2}>
+      <Grid item xs={2} lg={12/5}>
         <FormControl fullWidth>
           <InputLabel>Dropdown 3</InputLabel>
           <Select>
@@ -64,7 +64,7 @@ function DropdownRow() {
       </Grid>
 
       {/* Dropdown 4 */}
-      <Grid item xs={2}>
+      <Grid item xs={2} lg={12/5}>
         <FormControl fullWidth>
           <InputLabel>Dropdown 4</InputLabel>
           <Select>
@@ -76,7 +76,7 @@ function DropdownRow() {
       </Grid>
 
       {/* Dropdown 5 */}
-      <Grid item xs={2}>
+      <Grid item xs={2} lg={12/5}>
         <FormControl fullWidth>
           <InputLabel>Dropdown 5</InputLabel>
           <Select>
