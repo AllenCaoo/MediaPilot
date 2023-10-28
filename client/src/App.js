@@ -45,7 +45,49 @@ function App() {
   //   )
   // }, [])
 
+  useEffect(() => {
+    // Fetch data from /testget endpoint
+    fetch(api("/testget"))
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setData(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
+      });
+  }, []);
   
+  useEffect(() => {
+    // Fetch data from /echo endpoint
+    fetch(api("/echo"), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(echo),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setEcho(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
+      });
+  }, [echo]); // Include 'echo' in the dependency array if it's needed to trigger this effect
+  
+
   return (
 
     
