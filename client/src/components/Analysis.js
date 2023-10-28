@@ -24,6 +24,8 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+
 
 
 const ariaLabel = { 'aria-label': 'description' };
@@ -69,6 +71,19 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
+const angerWords = [
+  'furious',
+  'irate',
+  'enraged',
+  'annoyed',
+  'infuriated',
+  'mad',
+  'angry',
+  'outraged',
+  'livid',
+  'vexed',
+];
+
 function TextDisplayApp() {
   const [enteredText, setEnteredText] = useState('');
   const [displayedText, setDisplayedText] = useState('');
@@ -78,7 +93,19 @@ function TextDisplayApp() {
   };
 
   const displayText = () => {
-    setDisplayedText(enteredText);
+    const words = enteredText.split(/\s+/);
+    const formattedText = words.map((word, index) => {
+      if (angerWords.includes(word.toLowerCase())) {
+        return (
+          <span key={index} style={{ backgroundColor: 'yellow' }}>
+            {word}
+          </span>
+        );
+      }
+      return ' ' + word + ' ';
+    });
+
+    setDisplayedText(formattedText);
   };
 
   return (
@@ -89,15 +116,33 @@ function TextDisplayApp() {
         value={enteredText}
         onChange={handleTextChange}
       />
-      <Button variant="contained" color="primary" onClick={displayText}>
-        Display Text
-      </Button>
-      <Typography variant="body1">
-        Displayed Text: {displayedText}
+      <div style={{ marginTop: '10px' }}>
+        <Button variant="contained" color="primary" onClick={displayText} style={{ marginBottom: '10px' }}>
+          Display Text
+        </Button>
+        </div>
+        <Typography variant="body1" style={{ whiteSpace: 'pre-line' }}>
+        {displayedText}
       </Typography>
     </div>
   );
 }
+
+const WordsOfAnger = () => {
+  return (
+    <div>
+      <Typography variant="body1">Words of Anger</Typography>
+      <Grid container spacing={1}>
+        {angerWords.map((word, index) => (
+          <Grid item key={index}>
+            <Chip label={word} color="secondary" />
+          </Grid>
+        ))}
+      </Grid>
+    </div>
+  );
+};
+
 
 
 export default function Analysis() {
@@ -129,9 +174,7 @@ export default function Analysis() {
             getLabelText={(value) => customIcons[value].label}
             highlightSelectedOnly
           />
-          <ListItem>
-
-          </ListItem>
+          <WordsOfAnger />
         </Grid>
       </Grid>
         
