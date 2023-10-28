@@ -31,6 +31,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
+
 function MyFormHelperText() {
   const { focused } = useFormControl() || {};
 
@@ -57,7 +58,7 @@ function MyFormHelperText() {
 //     objVar
 //   } = handleClick()
 
-
+export const enteredText = "Hello";
 
 export default function UseFormControl() {
     const [enteredText, setEnteredText] = useState('');
@@ -66,6 +67,7 @@ export default function UseFormControl() {
       setEnteredText(event.target.value);
     };
     console.log(enteredText)
+    localStorage.setItem(enteredText, JSON.stringify(enteredText));
   return (
     enteredText,
     <form noValidate autoComplete="off">
