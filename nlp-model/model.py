@@ -8,9 +8,19 @@ import sqlite3
 
 server = mindsdb_sdk.connect()
 
-# Sample query 
 db0 = server.databases.list()[0]
-query = db0.query('select * from training LIMIT 25')
+
+# db = server.database.connect(
+#     engine = 'sqlite',
+#     paramets = {
+#         "db_file": ""
+#     }
+# )
+
+# tbl = db0.tables.get('')
+
+# Sample query 
+# query = db0.query('select * from training LIMIT 25')
 # print(query.fetch())
 
 # connects to the specified host and port
@@ -30,7 +40,7 @@ print(models)
 # note = select()
 
 # engine = create_engine('sqlite:///datasets/our_data.db')
-df = pd.read_csv('datasets/training_data.csv')
+df = pd.read_csv('datasets/realdonaldtrump.csv')
 
 conn = sqlite3.connect('our_data.db')
 
@@ -39,15 +49,16 @@ df.to_sql(name='data', con=conn, if_exists='replace', index=False)
 conn.commit()
 
 
-# sentiment_model = project.models.get('sentiment')
-sentiment_model = project.models.create(
-    name = 'sentiment_test',
-    predict = 'polarity',
-    query = 'SELECT * FROM data LIMIT 25',
-    #from_data = 'mediapilot/datasets/training_data.csv'
-)
 
-sentiment_model = project.models.get('sentiment_test')
+# sentiment_model = project.models.create(
+#     name = 'sentiment',
+#     database = 'files',
+#     predict = 'favorites',
+#     query = 'SELECT * FROM dtrump;',
+#     #from_data = 'mediapilot/datasets/training_data.csv'
+# )
+
+sentiment_model = project.models.get('sentiment')
 
 
 # with engine.connect() as conn:
@@ -65,10 +76,11 @@ sentiment_model = project.models.get('sentiment_test')
 #     query = "SELECT * FROM data WHERE query == 'kindle2' "
 # )
 # sentiment_model.describe()
-sentiment_model.wait_complete()
-sentiment_model.predict(query)
+# sentiment_model.wait_complete()
+# query = 'SELECT * FROM dtrump;'
+sentiment_model.predict('favorites')
 
-server.close()
+# server.close()
 
 
 # project.list_models()
