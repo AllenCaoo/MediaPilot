@@ -8,35 +8,35 @@ function App() {
   const [data, setData] = useState([{"hello": ["hello"]}])
   const [echo, setEcho] = useState({"Echo": "echoooo"})
 
-  useEffect(() => {
-    fetch(api("/testget"))
-    .then(
-      res => res.json()
-    ).then(
-      d => {
-        setData(d);
-        console.log(d);
-      }
-    )
-  }, [])
+  // useEffect(() => {
+  //   fetch(api("/testget"))
+  //   .then(
+  //     res => res.json()
+  //   ).then(
+  //     d => {
+  //       setData(d);
+  //       console.log(d);
+  //     }
+  //   )
+  // }, [])
 
-  useEffect(() => {
-    fetch(api("/echo"), {
-      method: 'POST', // Replace with the appropriate HTTP method (e.g., POST, PUT)
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(echo),
-    })
-    .then(
-      res => res.json()
-    ).then(
-      d => {
-        setEcho(d);
-        console.log(d);
-      }
-    )
-  }, [])
+  // useEffect(() => {
+  //   fetch(api("/echo"), {
+  //     method: 'POST', // Replace with the appropriate HTTP method (e.g., POST, PUT)
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(echo),
+  //   })
+  //   .then(
+  //     res => res.json()
+  //   ).then(
+  //     d => {
+  //       setEcho(d);
+  //       console.log(d);
+  //     }
+  //   )
+  // }, [])
 
   return (
     <div>
