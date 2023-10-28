@@ -55,6 +55,12 @@
 2. `pip install -r requirements.txt` (try `pip3` if `pip` doesn't work)
 3. `cd client`
 4. `npm install`
+5. `cd ..`
+6. `cd nlp-server`
+7. `git clone https://github.com/mindsdb/mindsdb.git`
+8. `python setup.py develop`
+9. `python -m mindsdb`
+10. Fin! 
 
 ### To run backend server:
 - `cd flask-server`
