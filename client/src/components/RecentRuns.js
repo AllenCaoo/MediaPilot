@@ -26,9 +26,10 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 function DropdownRow() {
   return (
-    <Grid container spacing={2}>
+    <div>
+    <Grid container spacing={5}>
       {/* Dropdown 1 */}
-      <Grid item xs={2} lg={12/5}>
+      <Grid item xs={2} lg={12/3}>
         <FormControl fullWidth>
           <InputLabel>Dropdown 1</InputLabel>
           <Select>
@@ -40,7 +41,7 @@ function DropdownRow() {
       </Grid>
 
       {/* Dropdown 2 */}
-      <Grid item xs={2} lg={12/5}>
+      <Grid item xs={2} lg={12/3}>
         <FormControl fullWidth>
           <InputLabel>Dropdown 2</InputLabel>
           <Select>
@@ -52,7 +53,7 @@ function DropdownRow() {
       </Grid>
 
       {/* Dropdown 3 */}
-      <Grid item xs={2} lg={12/5}>
+      <Grid item xs={2} lg={12/3}>
         <FormControl fullWidth>
           <InputLabel>Dropdown 3</InputLabel>
           <Select>
@@ -63,30 +64,32 @@ function DropdownRow() {
         </FormControl>
       </Grid>
 
-      {/* Dropdown 4 */}
-      <Grid item xs={2} lg={12/5}>
-        <FormControl fullWidth>
-          <InputLabel>Dropdown 4</InputLabel>
-          <Select>
-            <MenuItem value={1}>Option 1</MenuItem>
-            <MenuItem value={2}>Option 2</MenuItem>
-            <MenuItem value={3}>Option 3</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
 
-      {/* Dropdown 5 */}
-      <Grid item xs={2} lg={12/5}>
-        <FormControl fullWidth>
-          <InputLabel>Dropdown 5</InputLabel>
-          <Select>
-            <MenuItem value={1}>Option 1</MenuItem>
-            <MenuItem value={2}>Option 2</MenuItem>
-            <MenuItem value={3}>Option 3</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
+    {/* First row */}
+    <Grid item xs={6}>
+      {/* Content for the first row, taking half of the available width */}
+      <div>Row 1 - Item 1</div>
     </Grid>
+    <Grid item xs={6}>
+      {/* Content for the first row, taking half of the available width */}
+      <div>Row 1 - Item 2</div>
+    </Grid>
+
+    {/* Second row */}
+    <Grid item xs={4}>
+      {/* Content for the second row, taking one-third of the available width */}
+      <div>Row 2 - Item 1</div>
+    </Grid>
+    <Grid item xs={4}>
+      {/* Content for the second row, taking one-third of the available width */}
+      <div>Row 2 - Item 2</div>
+    </Grid>
+    <Grid item xs={4}>
+      {/* Content for the second row, taking one-third of the available width */}
+      <div>Row 2 - Item 3</div>
+    </Grid>
+    </Grid>
+    </div>
   );
 }
 
