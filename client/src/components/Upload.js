@@ -1,77 +1,44 @@
-import React from 'react';
-import { useState } from 'react';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
+import React, { useState } from 'react'; // Combine import statements
 import Title from './Title';
-import UseFormControl from './Inputs';
-import LoadingButtonsTransition from './LoadingButton';
 import ContainedButtons from './Button';
-// import UploadFileIcon from '@mui/icons-material/UploadFile';
 import Container from '@mui/material/Container';
-// import { Table, TableBody, TableCell, TableRow } from '@mui/material';
 import TextField from '@mui/material/TextField';
-// import OutlinedInput from '@mui/material/OutlinedInput';
-// import FormHelperText from '@mui/material/FormHelperText';
-// import FormControl, { useFormControl } from '@mui/material/FormControl';
-import Input from '@mui/material/Input';
-import Button from '@mui/material/Button';
-
-
-
-
-
-const ariaLabel = { 'aria-label': 'description' };
-
-function preventDefault(event) {
-  event.preventDefault();
-}
-
 
 export default function Upload() {
+  const [enteredText, setEnteredText] = useState(''); // Define enteredText state
+
+  const handleTextChange = (event) => {
+    setEnteredText(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    // Handle the form submission here (e.g., send the enteredText to an API)
+  };
+
   return (
-    
     <Container maxWidth="lg" align="center">
       <Title>Prompt Analysis</Title>
-      
-      <TextField 
-          
-          
-          
-          UseFormControl
-          fullWidth label="fullWidth" id="fullWidth" 
-          id="outlined-multiline-static"
-          label="Enter your text here"
-          multiline
-          rows={8}
-
+      <TextField
+        fullWidth
+        label="Enter your text here"
+        id="outlined-multiline-static"
+        multiline
+        rows={8}
+        onChange={handleTextChange} // Add onChange to handle text input
+        value={enteredText} // Bind input value to the state
       />
       <div
-      style={{
+        style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           paddingTop: '2%'
-          }}
+        }}
       >
-      <ContainedButtons />
-      <TextDisplayApp />
+        <ContainedButtons onClick={handleSubmit}>Submit</ContainedButtons>
       </div>
-      
     </Container>
   );
-
-  function TextDisplayApp() {
-    const [enteredText, setEnteredText] = useState('');
-  
-    const handleTextChange = (event) => {
-      setEnteredText(event.target.value);
-    };
-
-    return (
-      enteredText
-    );
-  }
-
 }
 
 
