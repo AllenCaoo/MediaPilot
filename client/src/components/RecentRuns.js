@@ -90,7 +90,13 @@ function RecentRunsContent({setPage}) {
     setOpen(!open);
   };
 
-
+  const loadGrids = () => {
+    let res = []
+    for (let i=0; i<20; i++) {
+      res.push(<displayBox/>)
+    }
+    return res;
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -175,6 +181,7 @@ function RecentRunsContent({setPage}) {
                     }}>
                 </Paper>
               </Grid>
+              {loadGrids()}
               
             </Grid>
             <Copyright sx={{ pt: 4 }} />

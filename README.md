@@ -71,3 +71,10 @@
 - `cd client`
 - `npm start`
 - The React frontend will run on `http://localhost:3000`
+
+
+## Docker Setup:
+- `docker run -p 47334:47334 -p 47335:47335 mindsdb/mindsdb`
+- `http://127.0.0.1:47334/`
+- Afterwards: 
+  - powershell -> `wsl --shutdown` 
