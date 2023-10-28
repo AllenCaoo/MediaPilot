@@ -170,6 +170,7 @@ function DashboardContent() {
                     flexDirection: 'column',
                     height: 360
                     }}>
+                    <Upload />
                 </Paper>
               </Grid>
               
@@ -182,7 +183,7 @@ function DashboardContent() {
                     flexDirection: 'column',
                     height: 360,
                   }}>
-                  <Upload />
+                  
                 </Paper>
               </Grid>
             </Grid>
