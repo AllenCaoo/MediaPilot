@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -22,6 +22,7 @@ import Chart from './Chart';
 import Upload from './Upload';
 import Settings from './Settings';
 import Analysis from './Analysis';
+import Popup from './Popup';
 
 function Copyright(props) {
   return (
@@ -86,12 +87,17 @@ const mdTheme = createTheme();
 
 function DashboardContent({setPage}) {
   
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
+
+  const [clickedSubmit, setClickedSubmit] = useState(false);
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-
+  if (clickedSubmit) {
+    return <Popup/>
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -174,7 +180,7 @@ function DashboardContent({setPage}) {
                     flexDirection: 'column',
                     height: 360
                     }}>
-                    <Upload />
+                    <Upload setClickedSubmit={setClickedSubmit}/>
                 </Paper>
               </Grid>
               
