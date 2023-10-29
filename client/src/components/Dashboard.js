@@ -18,7 +18,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
 import Upload from './Upload';
 import Settings from './Settings';
 import Analysis from './Analysis';
@@ -85,9 +84,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent({setPage}) {
+function DashboardContent({setPage, enteredText, setEnteredText, results, setResults, enterRecentRuns,setEnterRecentRuns}) {
+
+  const [openPopup, setOpenPopup] = useState(false);
+
   
   const [open, setOpen] = useState(true);
+
 
   const [clickedSubmit, setClickedSubmit] = useState(false);
 
@@ -95,12 +98,14 @@ function DashboardContent({setPage}) {
     setOpen(!open);
   };
 
-  if (clickedSubmit) {
-    return <Popup/>
-  }
-
   return (
     <ThemeProvider theme={mdTheme}>
+      <Popup openPopup={openPopup} 
+        setOpenPopup={setOpenPopup} 
+        enteredText={enteredText}
+        setEnteredText={setEnteredText}
+        results={results} 
+        setResults={setResults}/>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -130,11 +135,6 @@ function DashboardContent({setPage}) {
             >
               MediaPilot
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -152,9 +152,9 @@ function DashboardContent({setPage}) {
           </Toolbar>
           <Divider />
           <List component="nav">
-              {mainListItems({setPage})}
-            <Divider sx={{ my: 1 }} />
-              {secondaryListItems()}
+              {mainListItems({setPage, enterRecentRuns, setEnterRecentRuns})}
+            {/* <Divider sx={{ my: 1 }} />
+              {secondaryListItems()} */}
           </List>
         </Drawer>
         <Box
@@ -180,12 +180,17 @@ function DashboardContent({setPage}) {
                     flexDirection: 'column',
                     height: 360
                     }}>
-                    <Upload setClickedSubmit={setClickedSubmit}/>
+                    <Upload setClickedSubmit={setClickedSubmit} 
+                            setOpenPopup={setOpenPopup} 
+                            enteredText={enteredText} 
+                            setEnteredText={setEnteredText} 
+                            results={results}
+                            setResults={setResults}/>
                 </Paper>
               </Grid>
               
               {/* TODO: grid 2 */}
-              <Grid item xs={12} md={4} lg={12}>
+              {/* <Grid item xs={12} md={4} lg={12}>
                 <Paper
                   sx={{
                     p: 2,
@@ -195,7 +200,7 @@ function DashboardContent({setPage}) {
                   }}>
                   <Analysis />
                 </Paper>
-              </Grid>
+              </Grid> */}
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
@@ -205,6 +210,12 @@ function DashboardContent({setPage}) {
   );
 }
 
-export default function Dashboard({setPage}) {
-  return <DashboardContent setPage={setPage}/>;
+export default function Dashboard({setPage, enteredText, setEnteredText, results, setResults, enterRecentRuns, setEnterRecentRuns}) {
+  return <DashboardContent setPage={setPage}
+                            enteredText={enteredText}
+                            setEnteredText={setEnteredText} 
+                            results={results}
+                            setResults={setResults}
+                            enterRecentRuns={enterRecentRuns}
+                            setEnterRecentRuns={setEnterRecentRuns} />;
 }

@@ -25,6 +25,7 @@ import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfi
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
+import Chart from './Chart';
 
 
 
@@ -181,6 +182,7 @@ const StyledRating = styled(Rating)(({ theme, value }) => ({
 
 export default function Analysis() {
   return (
+    
     
     <Container maxWidth="lg" align="center">
       <Grid container spacing={2} columns={16}>

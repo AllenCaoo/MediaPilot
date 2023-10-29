@@ -5,8 +5,12 @@ import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Popup from './Popup';
 
-export default function Upload({setClickedSubmit}) {
-  const [enteredText, setEnteredText] = useState(''); // Define enteredText state
+export default function Upload({setClickedSubmit, 
+                                setOpenPopup, 
+                                enteredText, 
+                                setEnteredText,
+                                results,
+                                setResults}) {
   
   const handleTextChange = (event) => {
     setEnteredText(event.target.value);
@@ -36,7 +40,13 @@ export default function Upload({setClickedSubmit}) {
             paddingTop: '2%'
           }}
         >
-          <ContainedButtons setClickedSubmit={setClickedSubmit}>Submit</ContainedButtons>
+          <ContainedButtons setClickedSubmit={setClickedSubmit} 
+                            setOpenPopup={setOpenPopup} 
+                            enteredText={enteredText} 
+                            setEnteredText={setEnteredText}
+                            results={results}
+                            setResults={setResults}>Submit
+                            </ContainedButtons>
         </div>
       </Container>
     );
