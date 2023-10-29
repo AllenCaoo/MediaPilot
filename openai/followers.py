@@ -1,48 +1,108 @@
-import pandas as pd
-import datetime
+# import pandas as pd
+# import datetime
+
+# followers = pd.read_csv('datasets/followers_history.csv')
+# followers['dt_temp'] = pd.to_datetime(followers['date'])
+# followers['year'] = followers['dt_temp'].dt.year
+# followers['month'] = followers['dt_temp'].dt.month
+# followers = followers.drop('dt_temp', axis=1)
+
+# score_trump = pd.read_csv('datasets/scores_trump.csv')
+# score_trump['dt_temp'] = pd.to_datetime(score_trump['date'])
+# score_trump['year'] = score_trump['dt_temp'].dt.year
+# score_trump['month'] = score_trump['dt_temp'].dt.month
+# score_trump = score_trump.drop('dt_temp', axis=1)
+
+# result = score_trump.merge(followers, on=['month', 'year'], how='left')
+
+# # result.drop_duplicates(subset=['id'], keep='first')
+
+# print(score_trump)
+# print(result)
+
 import csv
+import datetime
+import pandas as pd
 
-follower_data = pd.read_csv('datasets/followers_history.csv')
-orig_data = pd.read_csv('datasets/scores_trump.csv')
 
-follower_data['date'] = pd.to_datetime(follower_data['date'], format='%Y-%m-%d')
-orig_data['date'] = orig_data['date'] = pd.to_datetime(orig_data['date'], format='%Y-%m-%d %H:%M:%S')
+mp = {}
+badRows = []
+with open('datasets/followers_history.csv', 'r') as csvfile:
+    # Create a CSV reader
+    csvreader = csv.reader(csvfile)
 
-# print(orig_data)
-prev_date = ''
-index = 0
+    # Iterate through each row in the CSV file
+    first = True
+    for row in csvreader:
+        if first:
+            first = False
+            continue
+        date = datetime.datetime.strptime(row[6], '%Y-%m-%d %H:%M:%S')
+        year = date.year
+        month = date.month
+        if not row[3]:
+            continue
+        followers = int(row[3])
+        mp[(month, year)] = followers
+        # Process the row data
 
-new_orig_dates = []
-new_follower_dates = []
-followers_list = [0 for j in range(len(follower_data))]
+# res = []
+data = {'id':[], 'followers':[]}
 
-for i in range(1, len(follower_data)):
-    date = follower_data['date'][i]
-    formatted_date = date.strftime("%B %Y")
-    new_follower_dates.append(formatted_date)
-    # print(formatted_date)
+with open('datasets/scores_trump.csv', 'r', encoding="utf-8") as csvfile:
+    # Create a CSV reader
+    csvreader = csv.reader(csvfile)
 
-for j in range(1, len(orig_data)):
-    date = orig_data['date'][j]
-    formatted_date = date.strftime("%B %Y")
-    new_orig_dates.append(formatted_date)
-    # print(formatted_date)
+    # Iterate through each row in the CSV file
+    first = True
+    length = 0
+    for row in csvreader:
+        if first:
+            first = False
+            continue
+        id = int(row[0])
+        date = datetime.datetime.strptime(row[3], '%Y-%m-%d %H:%M:%S')
+        year = date.year
+        month = date.month
 
-orig_data['date'] = pd.Series(new_orig_dates)
-follower_data['date'] = pd.Series(new_follower_dates)
-follower_data = follower_data[['date', 'followers']]
+        prevMonth, nextMonth = month, month
+        prevYear, nextYear = year, year
 
-result = pd.merge(orig_data, follower_data, on='date', how='left')
+        while (prevMonth, prevYear) not in mp and (nextMonth, nextYear) not in mp:
+            if month == 1:
+                prevMonth = 12
+                prevYear -= 1
+            else:
+                prevMonth -= 1
+            if month == 12:
+                nextMonth = 1
+                nextYear += 1
+            else:
+                nextMonth += 1
 
-favs = result['favorites']
-fols = result['followers']
+        if (prevMonth, prevYear) in mp:
+            # print(date, mp[(prevMonth, prevYear)])
+            # res.append(mp[(prevMonth, prevYear)])
+            data['id'].append(id)
+            data['followers'].append(mp[(prevMonth, prevYear)])
+        else:
+            # print(date, mp[(nextMonth, nextYear)])
+            # res.append(mp[(nextMonth, nextYear)])
+            data['id'].append(id)
+            data['followers'].append(mp[(nextMonth, nextYear)])
 
-ratio = favs / fols
 
-result['favorites'] = pd.Series(ratio)
+        length += 1
+    
 
-print(result['favorites'])
+scores_trump = pd.read_csv('datasets/scores_trump.csv')
+idFollowers = pd.DataFrame(data)
+result = pd.merge(scores_trump, idFollowers, on='id', how='inner')
+result['favorites'] = result['favorites'] / result['followers']
+result['retweets'] = result['retweets'] / result['followers']
+result = result.reset_index(drop=True)
+result.to_csv('datasets/scores_trump.csv',index=False)        
 
-csv_path = 'datasets/scores_trump.csv'
+        
+        # Process the row data
 
-result.to_csv(csv_path, index=False)
