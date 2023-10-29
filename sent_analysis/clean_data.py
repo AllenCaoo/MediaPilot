@@ -25,28 +25,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon')
 analyzer = SentimentIntensityAnalyzer()
 
-dtrump = pd.read_csv('scores_trump.csv')
-
-X = dtrump['content']
-y = dtrump['sentiment']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-
-# Vectorize the text data using TF-IDF
-vectorizer = TfidfVectorizer()
-X_train_tfidf = vectorizer.fit_transform(X_train)
-X_test_tfidf = vectorizer.transform(X_test)
-
-# Train a Naive Bayes classifier
-classifier = MultinomialNB()
-classifier.fit(X_train_tfidf, y_train)
-
-# Make predictions on the test set
-y_pred = classifier.predict(X_test_tfidf)
-
-# Evaluate the model
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Accuracy: {accuracy}")
+dtrump = pd.read_csv('datasets/scores_trump.csv')
 
 def preprocess_tweet(tweet):
     # Convert to lowercase
