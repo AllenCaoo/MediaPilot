@@ -10,7 +10,9 @@ export default function Upload({setClickedSubmit,
                                 enteredText, 
                                 setEnteredText,
                                 results,
-                                setResults}) {
+                                setResults,
+                                sentimentalScore,
+                                setSentimentalScore}) {
   
   const handleTextChange = (event) => {
     setEnteredText(event.target.value);
@@ -45,11 +47,11 @@ export default function Upload({setClickedSubmit,
                             enteredText={enteredText} 
                             setEnteredText={setEnteredText}
                             results={results}
-                            setResults={setResults}>Submit
+                            setResults={setResults}
+                            sentimentalScore={sentimentalScore}
+                            setSentimentalScore={setSentimentalScore}>Submit
                             </ContainedButtons>
         </div>
       </Container>
     );
 }
-
-

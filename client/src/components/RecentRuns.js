@@ -113,6 +113,8 @@ function RecentRunsContent({setPage,
                               setEnteredText, 
                               results, 
                               setResults, 
+                              sentimentalScore,
+                              setSentimentalScore,
                               enterRecentRuns, 
                               setEnterRecentRuns}) {
   const [open, setOpen] = React.useState(true);
@@ -120,6 +122,7 @@ function RecentRunsContent({setPage,
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
 
   async function loadAccordions() {
     let resp; 
@@ -261,6 +264,8 @@ export default function RecentRuns({setPage,
                                     setEnteredText, 
                                     results, 
                                     setResults, 
+                                    sentimentalScore,
+                                    setSentimentalScore,
                                     enterRecentRuns, 
                                     setEnterRecentRuns}) {
   return <RecentRunsContent setPage={setPage} 
@@ -268,6 +273,8 @@ export default function RecentRuns({setPage,
                             setEnteredText={setEnteredText}
                             results={results}
                             setResults={setResults}
+                            sentimentalScore={sentimentalScore}
+                            setSentimentalScore={setSentimentalScore}
                             enterRecentRuns={enterRecentRuns}
                             setEnterRecentRuns={setEnterRecentRuns}/>;
 }

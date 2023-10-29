@@ -23,7 +23,7 @@ import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 import { api } from '../api';
 
-export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, results, setResults}) {
+export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, results, setResults,sentimentalScore, setSentimentalScore}) {
 
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('sm');
@@ -85,6 +85,7 @@ export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, res
               maxWidth={'xl'}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>{results}</DialogContent>
+        <DialogContent>{sentimentalScore}</DialogContent>
         <DialogActions>{actions}</DialogActions>
       </Dialog>
     );

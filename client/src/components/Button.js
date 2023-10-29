@@ -4,21 +4,15 @@ import Stack from '@mui/material/Stack';
 import Link from '@mui/material/Link';
 import Popup from './Popup';
 import { api } from '../api';
-import LoadingButton from '@mui/lab/LoadingButton';
-
-
-
-
-
 
 export default function ContainedButtons({setClickedSubmit, 
                                           setOpenPopup, 
                                           enteredText, 
                                           setEnteredText,
                                           results,
-                                          setResults}) {
-
-  const [loading, setLoading] = React.useState(false);
+                                          setResults,
+                                          sentimentalScore,
+                                          setSentimentalScore}) {
 
   const fetchRun = async () => {
       await fetch(api("/predictLikes"), {
@@ -36,7 +30,8 @@ export default function ContainedButtons({setClickedSubmit,
       })
       .then((data) => {
         // TODO: results here
-        setResults(data["score"])
+        setResults(data["score"]);
+        setSentimentalScore(data["sentimental"])
       })
       .catch((error) => {
         console.error('Fetch error:', error);
@@ -47,29 +42,14 @@ export default function ContainedButtons({setClickedSubmit,
     await fetchRun();
     setClickedSubmit(true)
     setOpenPopup(true)
-    setLoading(true);
   };
 
 
   return (
     <Stack direction="row" spacing={2}>
-
-      {/* <LoadingButton
-          onClick={handleClick}
-          loading={loading}
-          loadingPosition="end"
-          variant="contained"
-        >
-          <span>Submit</span>
-        </LoadingButton> */}
-
-
         <Button variant="contained" onClick={handleClick}>
           Submit
         </Button>
     </Stack>
   );
 }
-
-
-

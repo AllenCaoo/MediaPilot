@@ -84,7 +84,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent({setPage, enteredText, setEnteredText, results, setResults, enterRecentRuns,setEnterRecentRuns}) {
+function DashboardContent({setPage, enteredText, setEnteredText, results, setResults, sentimentalScore, setSentimentalScore,enterRecentRuns,setEnterRecentRuns}) {
 
   const [openPopup, setOpenPopup] = useState(false);
 
@@ -105,7 +105,9 @@ function DashboardContent({setPage, enteredText, setEnteredText, results, setRes
         enteredText={enteredText}
         setEnteredText={setEnteredText}
         results={results} 
-        setResults={setResults}/>
+        setResults={setResults}
+        sentimentalScore={sentimentalScore}
+        setSentimentalScore={setSentimentalScore}/>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -185,7 +187,9 @@ function DashboardContent({setPage, enteredText, setEnteredText, results, setRes
                             enteredText={enteredText} 
                             setEnteredText={setEnteredText} 
                             results={results}
-                            setResults={setResults}/>
+                            setResults={setResults}
+                            sentimentalScore={sentimentalScore}
+                            setSentimentalScore={setSentimentalScore}/>
                 </Paper>
               </Grid>
               
@@ -210,12 +214,14 @@ function DashboardContent({setPage, enteredText, setEnteredText, results, setRes
   );
 }
 
-export default function Dashboard({setPage, enteredText, setEnteredText, results, setResults, enterRecentRuns, setEnterRecentRuns}) {
+export default function Dashboard({setPage, enteredText, setEnteredText, results, setResults, sentimentalScore,setSentimentalScore, enterRecentRuns, setEnterRecentRuns}) {
   return <DashboardContent setPage={setPage}
                             enteredText={enteredText}
                             setEnteredText={setEnteredText} 
                             results={results}
                             setResults={setResults}
+                            sentimentalScore={sentimentalScore}
+                            setSentimentalScore={setSentimentalScore}
                             enterRecentRuns={enterRecentRuns}
                             setEnterRecentRuns={setEnterRecentRuns} />;
 }

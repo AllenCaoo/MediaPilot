@@ -17,6 +17,7 @@ function App() {
   const [echo, setEcho] = useState({"Echo": "echoooo"})
   const [page, setPage] = useState("dashboard")
   const [results, setResults] = useState(-1)
+  const [sentimentalScore, setSentimentalScore] = useState(-1)
   const [enteredText, setEnteredText] = useState(''); // Define enteredText state
 
 
@@ -25,6 +26,8 @@ function App() {
                                 setEnteredText={setEnteredText}
                                 results={results}
                                 setResults={setResults}
+                                sentimentalScore={sentimentalScore}
+                                setSentimentalScore={setSentimentalScore}
                                 enterRecentRuns={enterRecentRuns}
                                 setEnterRecentRuns={setEnterRecentRuns}/>
   const recentRuns = <RecentRuns setPage={setPage}
@@ -32,6 +35,8 @@ function App() {
                                 setEnteredText={setEnteredText}
                                 results={results}
                                 setResults={setResults}
+                                sentimentalScore={sentimentalScore}
+                                setSentimentalScore={setSentimentalScore}
                                 enterRecentRuns={enterRecentRuns}
                                 setEnterRecentRuns={setEnterRecentRuns}
                                 />

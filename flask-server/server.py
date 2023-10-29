@@ -36,11 +36,8 @@ def predictLikes():
         }
     }
     """
-    print("CALLING predictLikes")
     req = request.get_json()
-    print(req)
     tweet = req["content"]
-    print(tweet)
 
     data_matrix = None
     with open("../vectorizer.pkl", "rb") as m:
@@ -67,11 +64,8 @@ def predictLikes():
     with open("../predictor.pkl", "rb") as m:
         PRED_MODEL = pickle.load(m)
         res = PRED_MODEL.predict(pd.DataFrame([topics]))[0] * 82633764
-    print("--------------------------------------------------------------")
-    print("RESULT:", res)
-    print("--------------------------------------------------------------")
 
-    return {"score": res}
+    return {"score": res, "sentimental": score}
     
 
 @app.route("/getPastFavs", methods=['GET'])
@@ -103,7 +97,6 @@ def saveResult():
     }
     """
     req = request.get_json()
-    print(req)
         # Open the CSV file for appending
     with open(DB_PATH, 'a', newline='') as file:
         csv_writer = csv.writer(file)
