@@ -13,9 +13,9 @@ def analyze_sentiment(tweet):
     sentiment = analyzer.polarity_scores(tweet)
     compound_score = sentiment['compound']
     if compound_score >= 0.05:
-        return "Positive"
+        return "0"
     elif compound_score <= -0.05:
-        return "Negative"
+        return "1"
     else:
         return "Neutral"
 
@@ -24,15 +24,21 @@ dtrump = pd.read_csv('datasets/realdonaldtrump.csv')
 tweets_list = dtrump['content'].tolist()
 # print(type(tweets))
 
-sents = []
+labels = []
+scores = []
 for tweet in tweets_list:
-    sentiment = analyzer.polarity_scores(tweet)['compound']
-    sents.append(sentiment)
+    sentiment = analyze_sentiment(tweet)
+    score = analyzer.polarity_scores(tweet)['compound']
+    labels.append(sentiment)
+    scores.append(score)
     # print(tweet, sentiment)
 
-tweets = dtrump
-tweets['sentiment'] = sents
 
-dtrump.to_csv("datasets/realdonaldtrump_sent.csv", index=False)
+dtrump['sentiment'] = labels
+dtrump['scores'] = scores
 
-print(tweets)
+csv_file_path = "datasets/scores_trump.csv"
+
+dtrump.to_csv(csv_file_path, index=False)
+
+# print(dtrump)
