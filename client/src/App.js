@@ -12,48 +12,61 @@ import Results from "./pages/Results";
 
 function App() {
 
+  const [enterRecentRuns, setEnterRecentRuns] = useState([])
   const [data, setData] = useState([{"hello": ["hello"]}])
   const [echo, setEcho] = useState({"Echo": "echoooo"})
   const [page, setPage] = useState("dashboard")
+  const [results, setResults] = useState(-1)
+  const [enteredText, setEnteredText] = useState(''); // Define enteredText state
+
+
+  const dashboard = <Dashboard setPage={setPage} 
+                                enteredText={enteredText}
+                                setEnteredText={setEnteredText}
+                                results={results}
+                                setResults={setResults}
+                                enterRecentRuns={enterRecentRuns}
+                                setEnterRecentRuns={setEnterRecentRuns}/>
+  const recentRuns = <RecentRuns setPage={setPage}
+                                enteredText={enteredText}
+                                setEnteredText={setEnteredText}
+                                results={results}
+                                setResults={setResults}
+                                enterRecentRuns={enterRecentRuns}
+                                setEnterRecentRuns={setEnterRecentRuns}
+                                />
 
   const choosePage = (pg) => {
     if (pg == "dashboard") {
-      return <Dashboard setPage={setPage}/>
+      return dashboard;
     } else if (pg == "recent_runs") {
-      return <RecentRuns setPage={setPage}/>
+      return recentRuns;
     }
   }
 
 
-  // useEffect(() => {
-  //   fetch(api("/testget"))
-  //   .then(
-  //     res => res.json()
-  //   ).then(
-  //     d => {
-  //       setData(d);
-  //       console.log(d);
-  //     }
-  //   )
-  // }, [])
+  useEffect(() => {
+    fetch(api("/testget"))
+    .then(
+      res => res.json()
+    ).then(
+      d => {
+        setData(d);
+      }
+    )
+  }, [])
 
-  // useEffect(() => {
-  //   fetch(api("/echo"), {
-  //     method: 'POST', // Replace with the appropriate HTTP method (e.g., POST, PUT)
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(echo),
-  //   })
-  //   .then(
-  //     res => res.json()
-  //   ).then(
-  //     d => {
-  //       setEcho(d);
-  //       console.log(d);
-  //     }
-  //   )
-  // }, [])
+  useEffect(() => {
+    fetch(api("/fetchRecentSaves"))
+    .then(
+      res => res.json()
+    ).then(
+      d => {
+        console.log(d)
+      }
+    )
+  }, [])
+
 
   useEffect(() => {
     // Fetch data from /testget endpoint
@@ -66,7 +79,6 @@ function App() {
       })
       .then((data) => {
         setData(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error('Fetch error:', error);
@@ -90,12 +102,11 @@ function App() {
       })
       .then((data) => {
         setEcho(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error('Fetch error:', error);
       });
-  }, [echo]); // Include 'echo' in the dependency array if it's needed to trigger this effect
+  }, []); // Include 'echo' in the dependency array if it's needed to trigger this effect
   
 
   return (
