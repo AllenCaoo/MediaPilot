@@ -17,28 +17,13 @@ server = mindsdb_sdk.connect('http://127.0.0.1:47334')
 
 
 db0 = server.databases.list()[0]
-<<<<<<< HEAD
 query = db0.query(SELECT_25_QUERY)
-=======
-
-# db = server.database.connect(
-#     engine = 'sqlite',
-#     paramets = {
-#         "db_file": ""
-#     }
-# )
-
-# tbl = db0.tables.get('')
-
-# Sample query 
-# query = db0.query('select * from training LIMIT 25')
->>>>>>> c23b395fd435a19617f86ecf55b8d04d151ef035
 # print(query.fetch())
 
 project = server.get_project('mediapilot')
 
-# models = project.models.list()
-# print(models)
+models = project.models.list()
+print(models[0])
 
 # server.list_projects()
 
@@ -67,7 +52,8 @@ conn.commit()
 #     #from_data = 'mediapilot/datasets/training_data.csv'
 # )
 
-model = project.models.get('sentiment')
+# model = project.get_model('sentiment')
+model = project.models.list()[0]
 
 
 # sentiment = project.
@@ -89,25 +75,29 @@ model = project.models.get('sentiment')
 # sentiment_model.wait_complete()
 # query = 'SELECT * FROM dtrump;'
 
-q = project.query("SELECT * FROM dtrump")
+# status = model.get_status()
+# print(status)
 
+q = project.query("SELECT * FROM dtrump")
+# q.fetch()
+
+# model.describe()
 # view = project.views.create(
 #     name = 'dtrump', 
 #     sql = q, 
 #     database = 'files'
 #     )
 
-views = project.views.list()
-print(views)
+# views = project.views.list()
+# print(views)
 # sentiment = view.create("sentiment", q, database = 'files')
 # query = pd.read_sql_query(q, con=conn)
-dtrump = project.views.get('dtrump')
+# dtrump = project.views.get('dtrump')
 
-query = project.query("SELECT 'favorites' FROM dtrump")
+# query = project.query("SELECT 'favorites' FROM dtrump")
 
-model.predict(dtrump.limit(10))
+model.predict(q)
 
 # server.close()
-
 
 # project.list_models()
