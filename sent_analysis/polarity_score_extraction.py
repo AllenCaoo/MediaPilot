@@ -19,6 +19,7 @@ def analyze_sentiment(tweet):
     else:
         return "Neutral"
 
+#Trump tweet PS extraction
 dtrump = pd.read_csv('datasets/realdonaldtrump.csv')
 
 tweets_list = dtrump['content'].tolist()

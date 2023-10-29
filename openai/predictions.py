@@ -22,7 +22,7 @@ mae = mean_absolute_error(y_test, y_pred)
 print(f'Mean Squared Error: {mse}')
 print(f'Mean Absolute Error: {mae}')
 
-new_tweet = pd.DataFrame({'retweets': [10], 'scores': 0.338493})
+new_tweet = pd.DataFrame({'retweets': [140], 'scores': 0.64983})
 predicted_likes = model.predict(new_tweet)
 
 print(f'Predicted Likes for New Tweet: {predicted_likes[0]}')
