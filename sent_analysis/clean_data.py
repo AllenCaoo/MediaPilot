@@ -1,0 +1,86 @@
+import nltk
+import csv
+
+#Data Analysis
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+#Data Preprocessing and Feature Engineering
+from textblob import TextBlob
+import re
+from nltk.corpus import stopwords
+from nltk.stem.wordnet import WordNetLemmatizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+
+#Model Selection and Validation
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import confusion_matrix, classification_report,accuracy_score
+
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')
+analyzer = SentimentIntensityAnalyzer()
+
+dtrump = pd.read_csv('scores_trump.csv')
+
+X = dtrump['content']
+y = dtrump['sentiment']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+# Vectorize the text data using TF-IDF
+vectorizer = TfidfVectorizer()
+X_train_tfidf = vectorizer.fit_transform(X_train)
+X_test_tfidf = vectorizer.transform(X_test)
+
+# Train a Naive Bayes classifier
+classifier = MultinomialNB()
+classifier.fit(X_train_tfidf, y_train)
+
+# Make predictions on the test set
+y_pred = classifier.predict(X_test_tfidf)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy}")
+
+def preprocess_tweet(tweet):
+    # Convert to lowercase
+    tweet = tweet.lower()
+    
+    # Remove URLs
+    tweet = re.sub(r'http\S+|www\S+|https\S+', '', tweet, flags=re.MULTILINE)
+    
+    # Remove mentions and hashtags
+    tweet = re.sub(r'@\w+|#\w+', '', tweet)
+    
+    # Remove special characters and numbers
+    tweet = re.sub(r'[^a-zA-Z\s]', '', tweet)
+    
+    # Tokenize the text
+    tokens = nltk.word_tokenize(tweet)
+     # Remove stopwords
+    stop_words = set(stopwords.words('english'))
+    tokens = [word for word in tokens if word not in stop_words]
+    
+    # Join tokens back into a string
+    tweet = ' '.join(tokens)
+    
+    return tweet
+
+cleaned = []
+
+for tweet in dtrump['content']:
+    processed = preprocess_tweet(tweet)
+    cleaned.append(processed)
+
+data_copy = dtrump
+data_copy['content'] = cleaned
+
+csv_file_path = "datasets/cleaned_data.csv"
+
+data_copy.to_csv(csv_file_path, index=False)
