@@ -24,78 +24,28 @@ import Settings from './Settings';
 import Analysis from './Analysis';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { api } from '../api';
 
-function AccordionRow() {
+
+function AccordionGrid(content) {
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={4}>
+    <Grid item xs={4}>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Accordion 1</Typography>
+            <Typography variant="h6">{content.content.date}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography variant="body1">
-              Content for Accordion 1.
+            <p>Date: {content.content.date}</p>
+            <p>Tweet: {content.content.tweet}</p>            
+            <p>Score: {parseInt(content.content.score)}</p>
             </Typography>
           </AccordionDetails>
         </Accordion>
       </Grid>
-      <Grid item xs={4}>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Accordion 2</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1">
-              Content for Accordion 2.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      </Grid>
-      <Grid item xs={4}>
-        <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h6">Accordion 3</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography variant="body1">
-              Content for Accordion 3.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      </Grid>
-    </Grid>
-  );
+  )
 }
 
-
-//     {/* First row */}
-//     <Grid item xs={6}>
-//       {/* Content for the first row, taking half of the available width */}
-//       <div>Row 1 - Item 1</div>
-//     </Grid>
-//     <Grid item xs={6}>
-//       {/* Content for the first row, taking half of the available width */}
-//       <div>Row 1 - Item 2</div>
-//     </Grid>
-
-//     {/* Second row */}
-//     <Grid item xs={4}>
-//       {/* Content for the second row, taking one-third of the available width */}
-//       <div>Row 2 - Item 1</div>
-//     </Grid>
-//     <Grid item xs={4}>
-//       {/* Content for the second row, taking one-third of the available width */}
-//       <div>Row 2 - Item 2</div>
-//     </Grid>
-//     <Grid item xs={4}>
-//       {/* Content for the second row, taking one-third of the available width */}
-//       <div>Row 2 - Item 3</div>
-//     </Grid>
-//     </Grid>
-//     </div>
-//   );
-// }
 
 function Copyright(props) {
   return (
@@ -158,19 +108,64 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function RecentRunsContent({setPage}) {
+function RecentRunsContent({setPage, 
+                              enteredText, 
+                              setEnteredText, 
+                              results, 
+                              setResults, 
+                              enterRecentRuns, 
+                              setEnterRecentRuns}) {
   const [open, setOpen] = React.useState(true);
+  const [displayRows, setDisplayRows] = React.useState([]);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const loadGrids = () => {
-    let res = []
-    for (let i=0; i<20; i++) {
-      res.push(<displayBox/>)
+  async function loadAccordions() {
+    let resp; 
+    await fetch(api("/fetchRecentSaves"))
+      .then(
+        res => res.json()
+      ).then(
+        d => {
+          resp = d;
+        }
+      )
+  
+    let currRow = []
+    let accordionRows = []
+    for (let i=0; i<resp["length"]; i++) {
+      let row = resp["rows"][i];
+      let timestamp = row[0]
+      let date = row[1]
+      let tweet = row[2]
+      let score = row[3]
+      let json = {
+        "timestamp": timestamp,
+        "date": date,
+        "tweet": tweet,
+        "score": score
+      }
+      currRow.push(<AccordionGrid content={json}/>)
+      // if (currRow.length % 3 == 99) {
+      //   accordionRows.push(
+      //     <Grid container spacing={2}>{currRow}</Grid>
+      //   )
+      // }
     }
-    return res;
+    if (currRow.length > 0) {
+      accordionRows.push(
+        <Grid container spacing={2}>{currRow}</Grid>
+      )
+    }
+
+    setDisplayRows(accordionRows);
   }
+
+  React.useEffect(()=>{ loadAccordions() }, [])
+
+  console.log(displayRows)
+  
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -203,11 +198,6 @@ function RecentRunsContent({setPage}) {
             >
               MediaPilot
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -225,9 +215,9 @@ function RecentRunsContent({setPage}) {
           </Toolbar>
           <Divider />
           <List component="nav">
-              {mainListItems({setPage})}
-            <Divider sx={{ my: 1 }} />
-              {secondaryListItems()}
+              {mainListItems({setPage, setEnterRecentRuns})}
+            {/* <Divider sx={{ my: 1 }} />
+              {secondaryListItems()} */}
           </List>
         </Drawer>
         <Box
@@ -251,16 +241,11 @@ function RecentRunsContent({setPage}) {
                     p: 2, 
                     display: 'flex', 
                     flexDirection: 'column',
-                    height: 360
+                    height: 500
                     }}>
-                  <AccordionRow />
-                      <Box sx={{ mb: 2 }} /> {/* Add spacing between the AccordionRow components */}
-                  <AccordionRow />
-                      <Box sx={{ mb: 2 }} /> {/* Add spacing between the AccordionRow components */}
-                  <AccordionRow />
+                      {displayRows}
                 </Paper>
               </Grid>
-              {loadGrids()}
               
             </Grid>
             <Copyright sx={{ pt: 4 }} />
@@ -271,6 +256,18 @@ function RecentRunsContent({setPage}) {
   );
 }
 
-export default function RecentRuns({setPage}) {
-  return <RecentRunsContent setPage={setPage}/>;
+export default function RecentRuns({setPage, 
+                                    enteredText, 
+                                    setEnteredText, 
+                                    results, 
+                                    setResults, 
+                                    enterRecentRuns, 
+                                    setEnterRecentRuns}) {
+  return <RecentRunsContent setPage={setPage} 
+                            enteredText={enteredText}
+                            setEnteredText={setEnteredText}
+                            results={results}
+                            setResults={setResults}
+                            enterRecentRuns={enterRecentRuns}
+                            setEnterRecentRuns={setEnterRecentRuns}/>;
 }

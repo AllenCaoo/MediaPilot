@@ -10,16 +10,21 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
-export function mainListItems ({setPage}) {
+export function mainListItems ({setPage,enterRecentRuns, setEnterRecentRuns}) {
   return (
   <React.Fragment>
-    <ListItemButton onClick={(e) => {setPage("dashboard") }}>
+    <ListItemButton onClick={(e) => {
+          setPage("dashboard") 
+        }}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton onClick={(e) => {setPage("recent_runs") }}>
+    <ListItemButton onClick={(e) => {
+        setPage("recent_runs") 
+        setEnterRecentRuns(true)
+        }}>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>

@@ -1,7 +1,14 @@
-
-import React, { useId, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { LineChart } from '@mui/x-charts/LineChart';
+import { BarChart } from '@mui/x-charts/BarChart';
+import { api } from '../api';
+import { BarPlot } from '@mui/x-charts/BarChart';
+import { LinePlot } from '@mui/x-charts/LineChart';
+import { ChartContainer } from '@mui/x-charts/ChartContainer';
+
+import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
+import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
+
 import Title from './Title';
 import { Line } from 'react-chartjs-2';
 import { Container, Paper, Typography } from '@mui/material';
@@ -47,8 +54,62 @@ function LineChartThingie() {
   />
   );
 }
+import { BarChart } from '@mui/x-charts/BarChart';
+import { api } from '../api';
+import { BarPlot } from '@mui/x-charts/BarChart';
+import { LinePlot } from '@mui/x-charts/LineChart';
+import { ChartContainer } from '@mui/x-charts/ChartContainer';
+
+import { ChartsXAxis } from '@mui/x-charts/ChartsXAxis';
+import { ChartsYAxis } from '@mui/x-charts/ChartsYAxis';
+
+
 export default function Chart() {
   const theme = useTheme();
+
+  const [XY, setXY] = useState()
+  const [hasSet, setHasSet] = useState(false)
+
+  const loadFavs = () => {
+      fetch(api("/getPastFavs"))
+        .then(
+          res => res.json()
+        ).then(
+          d => {
+            console.log(d)
+            let newArr = [d["timestamps"], d["favs"]]
+            setXY(newArr)
+            setHasSet(true)
+          }
+        )
+  }
+
+  useEffect(loadFavs, [])
+
+
+  if (XY && hasSet) {
+    console.log("VHEJFJHJII")
+
+    const series = [
+      // {
+      //   type: 'bar',
+      //   stack: '',
+      //   yAxisKey: 'eco',
+      //   data: [2, 5, 3, 4, 1],
+      // },
+      // {
+      //   type: 'bar',
+      //   stack: '',
+      //   yAxisKey: 'eco',
+      //   data: [5, 6, 2, 8, 9],
+      // },
+      {
+        type: 'line',
+        yAxisKey: 'pib',
+        color: 'red',
+        data: XY[1]
+      },
+    ];
 
   return (
     // <LineChartThingie />

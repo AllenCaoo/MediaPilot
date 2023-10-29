@@ -18,17 +18,19 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Chart from './Chart';
 
 
-export function Popup() {
+export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, results, setResults}) {
 
   const [open, setOpen] = useState(true);
   const handleOpen = () => {
-    setOpen(true);
+    setOpenPopup(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClose = async () => {
+    setOpenPopup(false);
+    await saveResults();
+    setEnteredText('')
+    setResults(-1)
   };
-
 
   function Modal({ open, onClose, title, content, actions }) {
     return (
@@ -37,7 +39,7 @@ export function Popup() {
               fullWidth={'xl'}
               maxWidth={'xl'}>
         <DialogTitle>{title}</DialogTitle>
-        <DialogContent>{content}</DialogContent>
+        <DialogContent>{results}</DialogContent>
         <DialogActions>{actions}</DialogActions>
       </Dialog>
     );
@@ -58,7 +60,11 @@ export function Popup() {
   
   return (
     <div>
-      <Modal open={open} onClose={handleClose} title="Modal Title" content={modalContent} actions={modalActions} />
+      <Modal open={openPopup} 
+              onClose={handleClose} 
+              title="Modal Title" 
+              content={modalContent} 
+              actions={modalActions} />
     </div>
   )
 }
