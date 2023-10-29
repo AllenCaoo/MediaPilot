@@ -22,6 +22,80 @@ import Chart from './Chart';
 import Upload from './Upload';
 import Settings from './Settings';
 import Analysis from './Analysis';
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+function AccordionRow() {
+  return (
+    <Grid container spacing={2}>
+      <Grid item xs={4}>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Accordion 1</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1">
+              Content for Accordion 1.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </Grid>
+      <Grid item xs={4}>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Accordion 2</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1">
+              Content for Accordion 2.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </Grid>
+      <Grid item xs={4}>
+        <Accordion>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h6">Accordion 3</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography variant="body1">
+              Content for Accordion 3.
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </Grid>
+    </Grid>
+  );
+}
+
+
+//     {/* First row */}
+//     <Grid item xs={6}>
+//       {/* Content for the first row, taking half of the available width */}
+//       <div>Row 1 - Item 1</div>
+//     </Grid>
+//     <Grid item xs={6}>
+//       {/* Content for the first row, taking half of the available width */}
+//       <div>Row 1 - Item 2</div>
+//     </Grid>
+
+//     {/* Second row */}
+//     <Grid item xs={4}>
+//       {/* Content for the second row, taking one-third of the available width */}
+//       <div>Row 2 - Item 1</div>
+//     </Grid>
+//     <Grid item xs={4}>
+//       {/* Content for the second row, taking one-third of the available width */}
+//       <div>Row 2 - Item 2</div>
+//     </Grid>
+//     <Grid item xs={4}>
+//       {/* Content for the second row, taking one-third of the available width */}
+//       <div>Row 2 - Item 3</div>
+//     </Grid>
+//     </Grid>
+//     </div>
+//   );
+// }
 
 function Copyright(props) {
   return (
@@ -90,7 +164,13 @@ function RecentRunsContent({setPage}) {
     setOpen(!open);
   };
 
-
+  const loadGrids = () => {
+    let res = []
+    for (let i=0; i<20; i++) {
+      res.push(<displayBox/>)
+    }
+    return res;
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -173,8 +253,14 @@ function RecentRunsContent({setPage}) {
                     flexDirection: 'column',
                     height: 360
                     }}>
+                  <AccordionRow />
+                      <Box sx={{ mb: 2 }} /> {/* Add spacing between the AccordionRow components */}
+                  <AccordionRow />
+                      <Box sx={{ mb: 2 }} /> {/* Add spacing between the AccordionRow components */}
+                  <AccordionRow />
                 </Paper>
               </Grid>
+              {loadGrids()}
               
             </Grid>
             <Copyright sx={{ pt: 4 }} />

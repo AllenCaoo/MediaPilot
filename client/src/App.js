@@ -5,6 +5,7 @@ import { BASE_URL } from './Contants/Constants';
 import { api } from './api';
 import Home from './pages/Home';
 import RecentRuns from './components/RecentRuns';
+import Dashboard from './components/Dashboard';
 
 
 import Results from "./pages/Results";
