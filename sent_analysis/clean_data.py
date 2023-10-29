@@ -23,9 +23,10 @@ from sklearn.metrics import confusion_matrix, classification_report,accuracy_sco
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 nltk.download('vader_lexicon')
+nltk.download('punkt')
 analyzer = SentimentIntensityAnalyzer()
 
-dtrump = pd.read_csv('scores_trump.csv')
+dtrump = pd.read_csv('datasets/scores_trump.csv')
 
 X = dtrump['content']
 y = dtrump['sentiment']
