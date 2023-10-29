@@ -62,12 +62,11 @@ def predictLikes():
             topics["Topic " + str(i)] = 1
         else:
             topics["Topic " + str(i)] = 0 
-    print(topics)
 
     res = None
     with open("../predictor.pkl", "rb") as m:
         PRED_MODEL = pickle.load(m)
-        res = PRED_MODEL.predict(pd.DataFrame([topics]))[0]
+        res = PRED_MODEL.predict(pd.DataFrame([topics]))[0] * 82633764
     print("--------------------------------------------------------------")
     print("RESULT:", res)
     print("--------------------------------------------------------------")
