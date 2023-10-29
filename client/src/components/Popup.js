@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Popup() {
+export function Popup() {
   return (
     <div>Popup</div>
   )

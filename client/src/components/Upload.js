@@ -3,17 +3,24 @@ import Title from './Title';
 import ContainedButtons from './Button';
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
+import Popup from './Popup';
 
 export default function Upload() {
   const [enteredText, setEnteredText] = useState(''); // Define enteredText state
-
+  const [clickedSubmit, setClickedSubmit] = useState(false);
+  
   const handleTextChange = (event) => {
     setEnteredText(event.target.value);
   };
 
   const handleSubmit = () => {
     // Handle the form submission here (e.g., send the enteredText to an API)
+    setClickedSubmit(true)
   };
+
+  if (clickedSubmit) {
+    return <Popup/>
+  }
 
   return (
     <Container maxWidth="lg" align="center">

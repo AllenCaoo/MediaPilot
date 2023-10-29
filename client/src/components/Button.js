@@ -19,7 +19,6 @@ export default function ContainedButtons() {
           Submit
         </Button>
       </Link>{' '}
-      
       <p>Displayed Text: {displayedText}</p>
     </Stack>
   );
