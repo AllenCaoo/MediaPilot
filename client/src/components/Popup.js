@@ -13,20 +13,14 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+
 import DialogTitle from '@mui/material/DialogTitle';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Switch from '@mui/material/Switch';
+import Chart from './Chart';
+
 
 export function Popup() {
 
   const [open, setOpen] = useState(true);
-  const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState('sm');
   const handleOpen = () => {
     setOpen(true);
   };
@@ -52,6 +46,7 @@ export function Popup() {
   const modalContent = (
     <div>
       <p>This is the content of the modal. You can put any content you want here.</p>
+      <Chart />
     </div>
   );
 
