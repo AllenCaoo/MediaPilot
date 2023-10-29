@@ -1,93 +1,3 @@
-// // import React, {useState} from 'react';
-
-// // import Button from '@mui/material/Button';
-// // import Dialog from '@mui/material/Dialog';
-// // import DialogActions from '@mui/material/DialogActions';
-// // import DialogContent from '@mui/material/DialogContent';
-// // import DialogTitle from '@mui/material/DialogTitle';
-
-
-// import React, {useState} from 'react';
-// import Box from '@mui/material/Box';
-// import Button from '@mui/material/Button';
-// import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
-// import DialogContent from '@mui/material/DialogContent';
-
-// import DialogTitle from '@mui/material/DialogTitle';
-// import Chart from './Chart';
-
-
-// export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, results, setResults}) {
-
-//   const [open, setOpen] = useState(true);
-//   const handleOpen = () => {
-//     setOpenPopup(true);
-//   };
-
-//   const handleClose = async () => {
-//     setOpenPopup(false);
-//     await saveResults();
-//     setEnteredText('')
-//     setResults(-1)
-//   };
-
-//   function Modal({ open, onClose, title, content, actions }) {
-//     return (
-//       <Dialog open={open} 
-//               onClose={onClose} 
-//               fullWidth={'xl'}
-//               maxWidth={'xl'}>
-//         <DialogTitle>{title}</DialogTitle>
-//         <DialogContent>{results}</DialogContent>
-//         <DialogActions>{actions}</DialogActions>
-//       </Dialog>
-//     );
-//   }
-
-//   const modalContent = (
-//     <div>
-//       <p>This is the content of the modal. You can put any content you want here.</p>
-//       <Chart />
-//     </div>
-//   );
-
-//   const modalActions = (
-//     <Button onClick={handleClose} color="primary">
-//       Close
-//     </Button>
-//   );
-  
-//   return (
-//     <div>
-//       <Modal open={openPopup} 
-//               onClose={handleClose} 
-//               title="Modal Title" 
-//               content={modalContent} 
-//               actions={modalActions} />
-//     </div>
-//   )
-// }
-
-// export default Popup
-
-
-
-
-
-
-
-
-
-// import React, {useState} from 'react';
-
-// import Button from '@mui/material/Button';
-// import Dialog from '@mui/material/Dialog';
-// import DialogActions from '@mui/material/DialogActions';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogTitle from '@mui/material/DialogTitle';
-
-
 import React, {useState} from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -165,7 +75,7 @@ export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, res
               fullWidth={'xl'}
               maxWidth={'xl'}>
         <DialogTitle>{title}</DialogTitle>
-        <DialogContent>{results}</DialogContent>
+        <DialogContent>{content}</DialogContent>
         <DialogActions>{actions}</DialogActions>
       </Dialog>
     );
@@ -173,7 +83,10 @@ export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, res
 
   const modalContent = (
     <div>
-      <p>This is the content of the modal. You can put any content you want here.</p>
+      <p>You entered the following text: </p>
+      <p>{enteredText}</p>
+      <p></p>
+      <p>Predicted number of likes: {results}</p>
     </div>
   );
 
@@ -187,7 +100,7 @@ export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, res
     <div>
       <Modal open={openPopup} 
               onClose={handleClose} 
-              title="Modal Title" 
+              title="Tweet Analysis" 
               content={modalContent} 
               actions={modalActions} />
     </div>
