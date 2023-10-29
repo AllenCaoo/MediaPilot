@@ -85,7 +85,7 @@ export function Popup({openPopup, setOpenPopup, enteredText, setEnteredText, res
     <div>
       <p>You entered the following text: </p>
       <p>{enteredText}</p>
-      <p></p>
+      <p>Sentimental Score: {sentimentalScore}</p>
       <p>Predicted number of likes: {results}</p>
     </div>
   );
