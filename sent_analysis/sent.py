@@ -2,6 +2,7 @@ import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import pandas as pd
 
+nltk.download("stopwords")
 stopwords = nltk.corpus.stopwords.words("english")
 
 nltk.download('vader_lexicon')
@@ -29,7 +30,9 @@ for tweet in tweets_list:
     sents.append(sentiment)
     # print(tweet, sentiment)
 
-tweets = dtrump[['date', 'content', 'favorites']]
+tweets = dtrump
 tweets['sentiment'] = sents
+
+dtrump.to_csv("datasets/realdonaldtrump_sent.csv", index=False)
 
 print(tweets)
