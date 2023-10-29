@@ -6,6 +6,7 @@ import string
 import spacy
 import torch
 import nltk
+import joblib
 
 from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
@@ -83,6 +84,9 @@ n_jobs = -1  # Use all available CPUs
                                      )
 lda_output = lda_model.fit_transform(data_matrix)
 
+model_filename = 'tm.pkl'
+joblib.dump(lda_model, model_filename)
+
 # for i,topic in enumerate(lda_model.components_):
 #     print(f'Top 10 words for topic #{i}:')
 #     print([vectorizer.get_feature_names_out()[i] for i in topic.argsort()[-10:]])
@@ -96,3 +100,9 @@ print(tweets_df)
 csv_path = 'datasets/tweets.csv'
 
 tweets_df.to_csv(csv_path, index=False)
+
+# def load_classifier(model_filename):
+#     topic_classifier = .load(model_filename)
+#     return topic_classifier
+
+# def classify_topic(topic_classifier, new_tweet):
